@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feeby-deployment
+  labels:
+    app: backend-feeby
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-feeby
+  template:
+    metadata:
+      labels:
+        app: backend-feeby
+    spec:
+      containers:
+      - name: backend-feeby
+        image: feeby_backend:latest
+        imagePullPolicy: Never
+        ports: 
+        - containerPort: 80
+        env:
+        - name: BASE_CANVAS_URL
+          value: https://canvas.lucabergman.nl
+        - name: BASE_APP_URL
+          value: http://localhost
+        - name: JWT_ALGORITHM
+          value: HS256
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-feeby-config
+              key: database-url
+        - name: POSTGRES_USER
+            valueFrom: 
+              secretKeyRef:
+                name: postgres-secret
+                key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: CANVAS_CLIENT_ID
+            valueFrom: 
+              secretKeyRef:
+                name: backend-feeby-secret
+                key: canvas-client-id
+        - name: CANVAS_CLIENT_SECRET
+            valueFrom: 
+              secretKeyRef:
+                name: backend-feeby-secret
+                key: canvas-client-secret
+        - name: JWT_SECRET
+            valueFrom: 
+              secretKeyRef:
+                name: backend-feeby-secret
+                key: jwt-secret
+        - name: CANVAS_DEVELOPER_KEY_ID
+            valueFrom: 
+              secretKeyRef:
+                name: backend-feeby-secret
+                key: canvas-developer-key-id
+        - name: CANVAS_DEVELOPER_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: backend-feeby-secret
+                key: canvas-developer-key
+        
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-feeby-service
+spec:
+  selector:
+    app: backend-feeby
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

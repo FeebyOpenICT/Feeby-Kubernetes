@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-feeby-deployment
+  labels:
+    app: frontend-feeby
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-feeby
+  template:
+    metadata:
+      labels:
+        app: frontend-feeby
+    spec:
+      containers:
+      - name: frontend-feeby
+        image: feeby_frontend:latest
+        imagePullPolicy: Never
+        ports: 
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-feeby-service
+spec:
+  selector:
+    app: frontend-feeby
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
