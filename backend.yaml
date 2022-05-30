@@ -33,40 +33,40 @@ spec:
               name: postgres-feeby-config
               key: database-url
         - name: POSTGRES_USER
-            valueFrom: 
-              secretKeyRef:
-                name: postgres-secret
-                key: postgres-user
+          valueFrom: 
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
         - name: POSTGRES_PASSWORD
           valueFrom: 
             secretKeyRef:
               name: postgres-secret
               key: postgres-password
         - name: CANVAS_CLIENT_ID
-            valueFrom: 
-              secretKeyRef:
-                name: backend-feeby-secret
-                key: canvas-client-id
+          valueFrom: 
+            secretKeyRef:
+              name: backend-feeby-secret
+              key: canvas-client-id
         - name: CANVAS_CLIENT_SECRET
-            valueFrom: 
-              secretKeyRef:
-                name: backend-feeby-secret
-                key: canvas-client-secret
+          valueFrom: 
+            secretKeyRef:
+              name: backend-feeby-secret
+              key: canvas-client-secret
         - name: JWT_SECRET
-            valueFrom: 
-              secretKeyRef:
-                name: backend-feeby-secret
-                key: jwt-secret
+          valueFrom: 
+            secretKeyRef:
+              name: backend-feeby-secret
+              key: jwt-secret
         - name: CANVAS_DEVELOPER_KEY_ID
-            valueFrom: 
-              secretKeyRef:
-                name: backend-feeby-secret
-                key: canvas-developer-key-id
+          valueFrom: 
+            secretKeyRef:
+              name: backend-feeby-secret
+              key: canvas-developer-key-id
         - name: CANVAS_DEVELOPER_KEY
-            valueFrom: 
-              secretKeyRef:
-                name: backend-feeby-secret
-                key: canvas-developer-key
+          valueFrom: 
+            secretKeyRef:
+              name: backend-feeby-secret
+              key: canvas-developer-key
         
 
 
