@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-feeby
-        image: feeby_frontend:latest
-        imagePullPolicy: Never
+        image: spark156/feeby-frontend:latest
         ports: 
         - containerPort: 80
 
